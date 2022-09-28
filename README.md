@@ -6,4 +6,4 @@ This challenge creates an interactive dashboard to explore a bellybutton diversi
     - JS
         - app.js: code that calls the data from the api and and uses it to make Plotly graphics
 - index.html: dashboard website 
-- samples.json: copy of the data set for debuging purposes
+- samples.json: copy of the data set for debugging purposes
