@@ -2,17 +2,18 @@
 let url = 'https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json'
 
 // populate selection with list ids
-d3.json(url).then(function(data) {
-    // get an array of all ids 
-    ids = data.samples.map(sample => sample.id);
-    // declare variable to store html that will be inserted into <select> element 
-    let html = '';
-    // loop through all ids 
-    for (let i = 0; i < ids.length; i ++) {
-        // concatinate html with <options> element with value and text of id
-        html = html + `<option value='${ids[i]}'>${ids[i]}</option>`};
-    // insert html (options) into the <select> element
-    d3.select("#selDataset").html(html)});
+function populateSelect() {
+    d3.json(url).then(function(data) {
+        // get an array of all ids 
+        ids = data.samples.map(sample => sample.id);
+        // declare variable to store html that will be inserted into <select> element 
+        let html = '';
+        // loop through all ids 
+        for (let i = 0; i < ids.length; i ++) {
+            // concatinate html with <options> element with value and text of id
+            html = html + `<option value='${ids[i]}'>${ids[i]}</option>`};
+        // insert html (options) into the <select> element
+        d3.select("#selDataset").html(html)})};
 
 // return sample with given id
 function getSampleFromId(data, id) {
@@ -203,6 +204,7 @@ function demographics() {
 // code to run on start up - calls all three plot funcitons and metadata for the first id number in the data 
 function init() {
     d3.json(url).then(function(data) {
+        populateSelect();
         let id = data.samples[0].id;
         barPlot(id);
         bubblePlot(id);
@@ -220,8 +222,3 @@ function optionChanged(id) {
 
 // run the startup code
 init();
-
-function onlyUnique(value, index, self) {
-    return self.indexOf(value) === index;};
-
-d3.json(url).then(data => console.log(data.metadata.map(mdEntry => mdEntry.gender).filter(onlyUnique)));
