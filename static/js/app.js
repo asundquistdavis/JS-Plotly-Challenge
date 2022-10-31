@@ -97,15 +97,14 @@ function gaugePlot(id) {
         Plotly.newPlot('gauge', plotData);});};
 
 // displays the meta data for given id
-function metaData(id) {
+function metaDataField(id) {
     d3.json(url).then(function(data) {
         let mdEntry = getMdEntryFromId(data, id);
         let keys = Object.keys(mdEntry);
         let html = '';
         for (let i = 0; i < keys.length; i ++) {
-            html = html + `<p>${keys[i]}: ${mdEntry[keys[i]]}</p>`;};
-        d3.select('#sample-metadata').html(html);
-    });};
+            html += (`<p>${keys[i]}: ${mdEntry[keys[i]]}</p>`);   };
+        d3.select('#sample-metadata').html(html);   });  };
 
 // displays demographics statistics
 function demographics() {
@@ -209,16 +208,16 @@ function init() {
         barPlot(id);
         bubblePlot(id);
         gaugePlot(id)
-        metaData(id);
+        metaDataField(id);
         demographics(id);});};      
 
 // target of the 'onchange' attr of html select element - calls all graphics with new id
 function optionChanged(id) {
+    console.log(id);
     barPlot(id);
     bubblePlot(id);
     gaugePlot(id);
-    metaData(id);
-    demographics(id);};
+    metaDataField(id);};
 
 // run the startup code
 init();
